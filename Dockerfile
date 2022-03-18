@@ -6,8 +6,8 @@ COPY ./package*.json ./
 RUN npm install
 COPY . .
 RUN npm run build
-COPY .env ./dist
+ENV API_URL=https://ws.apicep.com/cep.json?code=
 
-EXPOSE 8080
+EXPOSE 3000
 
 CMD [ "npm", "start" ]
