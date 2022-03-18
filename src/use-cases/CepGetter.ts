@@ -1,5 +1,5 @@
 import senderMessage from "../util/senderMessage";
-import moment from 'moment-timezone'
+
 export default async ({ cep }: { cep: string }) => {
     const currentCep = cep.replace(/\D/g, '')
     const entity = await senderMessage(currentCep)
@@ -8,24 +8,25 @@ export default async ({ cep }: { cep: string }) => {
         "200": {
             status: entity.status,
             message: {
-                data: moment().format('YYYY/MM/DD HH:mm'),
-                andress: entity?.address,
+                address: entity?.address,
                 code: entity?.code,
                 city: entity?.city,
-                district: entity?.district
+                district: entity?.district,
+                state: entity?.state
+
             }
         },
         "400": {
             status: entity.status,
-            message: `${entity?.message} - ${entity?.statusText}`
+            message: `${entity?.message}`
         },
         "404": {
             status: entity.status,
-            message: `${entity?.message} - ${entity?.statusText}`
+            message: `${entity?.message}`
         },
         "500": {
             status: entity.status,
-            message: `${entity?.message} - ${entity?.statusText}`
+            message: `${entity?.message}`
         }
     }
     //@ts-ignore
